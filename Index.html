@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Small Games</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .game-container { display: flex; justify-content: center; flex-wrap: wrap; }
+        .game { width: 300px; margin: 10px; padding: 10px; border: 1px solid #ddd; }
+        .ad { margin: 20px 0; background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Play Free Small Games</h1>
+    <div class="ad">[Ad Placeholder]</div>
+    
+    <div class="game-container">
+        <div class="game">
+            <h3>Flappy Bird Clone</h3>
+            <iframe src="flappy.html" width="280" height="400"></iframe>
+            <p>High Score: <span id="highScore1">0</span></p>
+        </div>
+        <div class="game">
+            <h3>Jumping Ball</h3>
+            <iframe src="jumpingball.html" width="280" height="400"></iframe>
+            <p>High Score: <span id="highScore2">0</span></p>
+        </div>
+    </div>
+    
+    <script>
+        function detectAdBlock() {
+            let ad = document.querySelector('.ad');
+            if (ad && ad.offsetHeight === 0) {
+                alert("Please disable your ad blocker to support us!");
+            }
+        }
+        
+        function resetScoresDaily() {
+            const now = new Date();
+            const lastReset = localStorage.getItem("lastReset");
+            if (!lastReset || new Date(lastReset).getDate() !== now.getDate()) {
+                localStorage.setItem("highScore1", 0);
+                localStorage.setItem("highScore2", 0);
+                localStorage.setItem("lastReset", now);
+            }
+        }
+        
+        function loadHighScores() {
+            document.getElementById("highScore1").innerText = localStorage.getItem("highScore1") || 0;
+            document.getElementById("highScore2").innerText = localStorage.getItem("highScore2") || 0;
+        }
+        
+        window.onload = function() {
+            detectAdBlock();
+            resetScoresDaily();
+            loadHighScores();
+        }
+    </script>
+</body>
+</html>
